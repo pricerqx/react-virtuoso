@@ -46,7 +46,9 @@ export type TableBodyProps = Pick<React.ComponentPropsWithRef<'tbody'>, 'style' 
 /**
  * Passed to the Components.List custom component
  */
-export type ListProps = Pick<React.ComponentPropsWithRef<'div'>, 'style' | 'children' | 'ref'> & { 'data-test-id': string }
+export type ListProps = Pick<React.ComponentPropsWithRef<'div'>, 'style' | 'children' | 'ref'> & {
+  'data-test-id': string
+}
 
 /**
  * Passed to the Components.List custom component
@@ -72,6 +74,7 @@ export interface ScrollSeekPlaceholderProps {
   groupIndex?: number
   type: 'group' | 'item'
 }
+
 /**
  * Passed to the Components.FillerRow custom component
  */
@@ -142,6 +145,7 @@ export interface Components<Data = unknown, Context = unknown> {
 /**
  * Customize the TableVirtuoso rendering by passing a set of custom components.
  */
+
 export interface TableComponents<Data = unknown, Context = unknown> {
   /**
    * Set to customize the wrapping `table` element.
@@ -153,17 +157,35 @@ export interface TableComponents<Data = unknown, Context = unknown> {
    * Set to render a fixed header at the top of the table (`thead`). use [[fixedHeaderContent]] to set the contents
    *
    */
-  TableHead?: React.ComponentType<Pick<React.ComponentPropsWithRef<'thead'>, 'style' | 'children' | 'ref'> & { context?: Context }>
+  TableHead?: React.ComponentType<
+    Pick<React.ComponentPropsWithRef<'thead'>, 'style' | 'children' | 'ref'> & {
+      context?: Context
+    }
+  >
 
   /**
    * Set to render a fixed footer at the bottom of the table (`tfoot`). use [[fixedFooterContent]] to set the contents
    */
-  TableFoot?: React.ComponentType<Pick<React.ComponentPropsWithRef<'tfoot'>, 'style' | 'children' | 'ref'> & { context?: Context }>
+  TableFoot?: React.ComponentType<
+    Pick<React.ComponentPropsWithRef<'tfoot'>, 'style' | 'children' | 'ref'> & {
+      context?: Context
+    }
+  >
 
   /**
    * Set to customize the item wrapping element. Default is `tr`.
    */
   TableRow?: React.ComponentType<ItemProps<Data> & { context?: Context }>
+
+  /**
+   * Set to the container of the group name (sticky header). Default is `div`.
+   */
+  GroupContainer?: React.ComponentType<GridListProps & { context?: Context }>
+
+  /**
+   * Set to customize the group item wrapping element. Use only if you would like to render list from elements different than a `div`.
+   */
+  Group?: React.ComponentType<GroupProps & { context?: Context }>
 
   /**
    * Set to customize the outermost scrollable element. This should not be necessary in general,
@@ -225,6 +247,7 @@ export interface Item<D> {
   size: number
   data?: D
 }
+
 export interface RecordItem<D> extends Item<D> {
   type?: undefined
   groupIndex?: number
@@ -362,21 +385,21 @@ export interface ScrollIntoViewLocationOptions {
    * Return an location object to scroll, or null to prevent scrolling.
    * Here's the default implementation:
    * ```ts
-const defaultCalculateViewLocation: CalculateViewLocation = ({
-  itemTop,
-  itemBottom,
-  viewportTop,
-  viewportBottom,
-  locationParams: { behavior, align, ...rest },
-}) => {
-  if (itemTop < viewportTop) {
-    return { ...rest, behavior, align: align ?? 'start' }
-  }
-  if (itemBottom > viewportBottom) {
-    return { ...rest, behavior, align: align ?? 'end' }
-  }
-  return null
-}
+   const defaultCalculateViewLocation: CalculateViewLocation = ({
+   itemTop,
+   itemBottom,
+   viewportTop,
+   viewportBottom,
+   locationParams: { behavior, align, ...rest },
+   }) => {
+   if (itemTop < viewportTop) {
+   return { ...rest, behavior, align: align ?? 'start' }
+   }
+   if (itemBottom > viewportBottom) {
+   return { ...rest, behavior, align: align ?? 'end' }
+   }
+   return null
+   }
    *```
    */
   calculateViewLocation?: CalculateViewLocation

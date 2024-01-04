@@ -1,6 +1,6 @@
 export { GroupedVirtuoso, Virtuoso } from './Virtuoso'
 export { VirtuosoGrid } from './VirtuosoGrid'
-export { TableVirtuoso } from './TableVirtuoso'
+export { TableVirtuoso, TableVirtuosoGroups } from './TableVirtuoso'
 export * from './interfaces'
 export * from './component-interfaces/Virtuoso'
 export * from './component-interfaces/TableVirtuoso'
